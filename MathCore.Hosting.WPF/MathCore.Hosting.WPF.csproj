@@ -16,7 +16,6 @@
     </PackageReleaseNotes>
   </PropertyGroup>
 
-s
   <PropertyGroup>
     <Authors>shmachilin@gmail.com</Authors>
     <Description>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Description>
