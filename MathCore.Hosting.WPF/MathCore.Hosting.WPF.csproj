@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.0.1</Version>
+    <Version>0.0.1</Version>
     <PackageReleaseNotes>
-      Базовый класс для приложения с хостом и контейнером сервисов
+      Добавлено свойство для доступа к провайдеру сервисов и к конфигурации приложения
     </PackageReleaseNotes>
   </PropertyGroup>
 
