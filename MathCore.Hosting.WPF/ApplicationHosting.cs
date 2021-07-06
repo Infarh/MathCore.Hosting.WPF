@@ -25,15 +25,18 @@ namespace MathCore.Hosting.WPF
         public static IHostBuilder CreateHostBuilder(string[] Args)
         {
             var builder = Host.CreateDefaultBuilder(Args);
-            var app = Current as ApplicationHosting;
-            builder = app?.ConfigureHostBuilder(builder) ?? builder;
-            builder.ConfigureServices((h, s) => (Current as ApplicationHosting)?.ConfigureServices(h, s));
-            return app?.ConfigureHostBuilderFinal(builder) ?? builder;
+            if (Current is not ApplicationHosting app) return builder;
+
+            builder = app.ConfigureHostBuilder(builder) ?? builder;
+            return app.ConfigureHostBuilderFinal(builder) ?? builder;
+
         }
 
-        protected virtual IHostBuilder ConfigureHostBuilder(IHostBuilder builder) => builder;
+        protected virtual IHostBuilder? ConfigureHostBuilder(IHostBuilder builder) => builder
+           .ConfigureServices((h, s) => (Current as ApplicationHosting)?.ConfigureServices(h, s));
 
-        protected virtual IHostBuilder ConfigureHostBuilderFinal(IHostBuilder builder) => builder;
+        protected virtual IHostBuilder? ConfigureHostBuilderFinal(IHostBuilder builder) => builder
+           .AddServiceLocator();
 
         protected virtual void ConfigureServices(HostBuilderContext host, IServiceCollection services) => 
             services.AddServicesFromAssembly(GetType());
