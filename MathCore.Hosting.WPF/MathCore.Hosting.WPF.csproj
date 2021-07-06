@@ -10,13 +10,13 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.1</Version>
+    <Version>0.0.1.1</Version>
     <PackageReleaseNotes>
-      Добавлено свойство для доступа к провайдеру сервисов и к конфигурации приложения
+      Оптимизирован алгоритм создания HostBuilder и подключение ServiceLocator
     </PackageReleaseNotes>
   </PropertyGroup>
 
-
+s
   <PropertyGroup>
     <Authors>shmachilin@gmail.com</Authors>
     <Description>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Description>
