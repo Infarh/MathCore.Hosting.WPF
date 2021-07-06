@@ -4,6 +4,31 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+    <!--<RunAnalyzersDuringLiveAnalysis>true</RunAnalyzersDuringLiveAnalysis>-->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>0.0.1</Version>
+    <PackageReleaseNotes>
+      Добавлено свойство для доступа к провайдеру сервисов и к конфигурации приложения
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+
+  <PropertyGroup>
+    <Authors>shmachilin@gmail.com</Authors>
+    <Description>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/infarh/MathCore.Hosting.WPF</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/infarh/MathCore.Hosting.WPF.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>WPF, IoC, Hosting, Services</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>MathCore.Hosting.WPF.snk</AssemblyOriginatorKeyFile>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

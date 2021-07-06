@@ -1,4 +1,4 @@
-﻿<Application x:Class="MathCore.Hosting.WPF.TestWPF.App"
+﻿<ApplicationHosting x:Class="MathCore.Hosting.WPF.TestWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:l="clr-namespace:MathCore.Hosting.WPF.TestWPF"
@@ -6,4 +6,4 @@
     <Application.Resources>
          
     </Application.Resources>
-</Application>
+</ApplicationHosting>
