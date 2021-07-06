@@ -1,0 +1,32 @@
+name: Publish NuGet.org
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    name: Update package
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Use .NET 5.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+        
+      - name: Building
+        run: dotnet build MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c release
+          
+#       - name: Testing
+#         run: dotnet test Tests\MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c Release --no-build
+        
+      - name: Packing
+        run: dotnet pack MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj --no-build -c Release -v q
+        
+      - name: Publishing
+        run: dotnet nuget push MathCore.Hosting.WPF\bin\Release\*.nupkg -k ${{ secrets.NuGetApiKey }} --skip-duplicate -s https://api.nuget.org/v3/index.json
