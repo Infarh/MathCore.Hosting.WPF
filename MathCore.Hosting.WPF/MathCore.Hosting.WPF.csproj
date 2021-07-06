@@ -12,11 +12,11 @@
   <PropertyGroup>
     <Version>0.0.1.1</Version>
     <PackageReleaseNotes>
-      Оптимизирован алгоритм создания HotBuilder и подключение ServiceLocator
+      Оптимизирован алгоритм создания HostBuilder и подключение ServiceLocator
     </PackageReleaseNotes>
   </PropertyGroup>
 
-
+s
   <PropertyGroup>
     <Authors>shmachilin@gmail.com</Authors>
     <Description>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Description>
