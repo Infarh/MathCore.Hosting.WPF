@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.1.1</Version>
+    <Version>0.0.1.2</Version>
     <PackageReleaseNotes>
-      Оптимизирован алгоритм создания HostBuilder и подключение ServiceLocator
+      Обновление пакетов
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.1.2" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.19.3" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.19.5" />
   </ItemGroup>
 
 </Project>
