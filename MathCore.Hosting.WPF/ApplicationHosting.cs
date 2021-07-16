@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 
 using Microsoft.Extensions.Configuration;
@@ -10,13 +12,34 @@ namespace MathCore.Hosting.WPF
 {
     public abstract class ApplicationHosting : Application
     {
+        protected static event Action<IHostBuilder>? ConfigureHost;
+
+        private static readonly List<Action<IHostBuilder>> __HostBuilderConfigurations = new();
+
+        protected static void HostBuilderConfiguratorAdd(Action<IHostBuilder> Configurator) => __HostBuilderConfigurations.Add(Configurator);
+        protected static bool HostBuilderConfiguratorRemove(Action<IHostBuilder> Configurator) => __HostBuilderConfigurations.Remove(Configurator);
+        protected static void HostBuilderConfiguratorClear() => __HostBuilderConfigurations.Clear();
+
+        protected static event Action<HostBuilderContext, IServiceCollection>? ConfigureServices;
+
+        private static readonly List<Action<HostBuilderContext, IServiceCollection>> __ServicesConfigurators = new()
+        {
+            (_, s) => s.AddServicesFromAssembly(Assembly.GetExecutingAssembly()),
+        };
+
+        protected static void SrervicesAdd(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Add(Configurator);
+        protected static bool SrervicesRemove(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Remove(Configurator);
+        protected static void SrervicesClear() => __ServicesConfigurators.Clear();
+
         public static Window? FocusedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsFocused);
         public static Window? ActiveWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
         public static Window? CurrentWindow => FocusedWindow ?? ActiveWindow ?? Current.MainWindow;
 
         private static IHost? __Hosting;
 
-        public static IHost Hosting => __Hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+        public static IHost Hosting => __Hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs())
+           .AddServiceLocator()
+           .Build();
 
         public static IServiceProvider Services => Hosting.Services;
 
@@ -25,21 +48,19 @@ namespace MathCore.Hosting.WPF
         public static IHostBuilder CreateHostBuilder(string[] Args)
         {
             var builder = Host.CreateDefaultBuilder(Args);
-            if (Current is not ApplicationHosting app) return builder;
+            foreach (var configurator in __HostBuilderConfigurations)
+                configurator(builder);
 
-            builder = app.ConfigureHostBuilder(builder) ?? builder;
-            return app.ConfigureHostBuilderFinal(builder) ?? builder;
+            ConfigureHost?.Invoke(builder);
 
+            foreach (var configurator in __ServicesConfigurators)
+                builder.ConfigureServices(configurator);
+
+            if (ConfigureServices is { } register_services_handlers)
+                builder.ConfigureServices(register_services_handlers);
+
+            return builder;
         }
-
-        protected virtual IHostBuilder? ConfigureHostBuilder(IHostBuilder builder) => builder
-           .ConfigureServices((h, s) => (Current as ApplicationHosting)?.ConfigureServices(h, s));
-
-        protected virtual IHostBuilder? ConfigureHostBuilderFinal(IHostBuilder builder) => builder
-           .AddServiceLocator();
-
-        protected virtual void ConfigureServices(HostBuilderContext host, IServiceCollection services) => 
-            services.AddServicesFromAssembly(GetType());
 
         protected override async void OnStartup(StartupEventArgs e)
         {
