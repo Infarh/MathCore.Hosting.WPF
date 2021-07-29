@@ -4,6 +4,6 @@
              xmlns:l="clr-namespace:MathCore.Hosting.WPF.TestWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <l:ServiceLocator x:Key="Locator"/>
     </Application.Resources>
 </ApplicationHosting>

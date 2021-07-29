@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.1.3</Version>
+    <Version>0.0.3</Version>
     <PackageReleaseNotes>
-      Обновление пакетов
+      Реорганизован метод регистрации сервисов для загрузки сервисов из сборки с методом Main
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.1.2" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.20" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.21.2" />
   </ItemGroup>
 
 </Project>
