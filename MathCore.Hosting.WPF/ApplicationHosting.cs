@@ -24,8 +24,28 @@ namespace MathCore.Hosting.WPF
 
         private static readonly List<Action<HostBuilderContext, IServiceCollection>> __ServicesConfigurators = new()
         {
-            (_, s) => s.AddServicesFromAssembly(Assembly.GetExecutingAssembly()),
+            LoadingServiceFromExecutingAssembly,
         };
+
+        private static void LoadingServiceFromExecutingAssembly(HostBuilderContext Host, IServiceCollection services)
+        {
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (assembly.GetName().Name is { Length: > 0 } name && (name.Contains("Microsoft") || name.Contains("Interop") || name.Contains("Blend")))
+                    continue;
+                if (assembly.GetCustomAttributes<AssemblyCompanyAttribute>().FirstOrDefault() is { } attribute && attribute.Company.Contains("Microsoft"))
+                    continue;
+
+                if (assembly.DefinedTypes.Any(type => type.GetMethod("Main") != null))
+                {
+                    services.AddServicesFromAssembly(assembly);
+                    continue;
+                }
+
+                if(assembly.GetCustomAttributes().Any(a => a.GetType().Name.Contains("Service")))
+                    services.AddServicesFromAssembly(assembly);
+            }
+        }
 
         protected static void SrervicesAdd(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Add(Configurator);
         protected static bool SrervicesRemove(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Remove(Configurator);

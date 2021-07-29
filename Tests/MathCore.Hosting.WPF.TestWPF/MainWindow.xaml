@@ -4,9 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:l="clr-namespace:MathCore.Hosting.WPF.TestWPF"
-        Title="MainWindow"
+        Title="{Binding Title}"
+        DataContext="{Binding MainModel, Source={StaticResource Locator}}"
         Width="800" Height="450">
     <Grid>
+        <TextBlock Text="{Binding Error, Source={StaticResource Locator}}"/>
 
     </Grid>
 </Window>
