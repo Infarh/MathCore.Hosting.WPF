@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.4.2</Version>
+    <Version>0.0.4.3</Version>
     <PackageReleaseNotes>
       Обновление пакетов
     </PackageReleaseNotes>
