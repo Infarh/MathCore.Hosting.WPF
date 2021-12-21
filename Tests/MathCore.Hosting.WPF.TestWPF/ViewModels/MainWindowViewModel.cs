@@ -1,4 +1,5 @@
-﻿using MathCore.WPF.ViewModels;
+﻿using MathCore.DI;
+using MathCore.WPF.ViewModels;
 
 namespace MathCore.Hosting.WPF.TestWPF.ViewModels
 {
