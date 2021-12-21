@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.6</Version>
+    <Version>0.0.6.1</Version>
     <PackageReleaseNotes>
-      Выделение методов регистрации сервисов в отдельный пакет MathCore.DI
+      Обновление версий пакетов
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.28" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.29" />
   </ItemGroup>
 
 </Project>
