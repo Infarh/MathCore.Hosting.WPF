@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.6.5</Version>
+    <Version>0.0.6.6</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -19,7 +19,7 @@
 
   <PropertyGroup>
     <Authors>shmachilin@gmail.com</Authors>
-    <Description>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Description>
+    <Descriptison>Библиотека инструментов для формирования инфраструктуры сервисов в WPF-приложении</Descriptison>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/infarh/MathCore.Hosting.WPF</PackageProjectUrl>
     <RepositoryUrl>https://github.com/infarh/MathCore.Hosting.WPF.git</RepositoryUrl>
@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathCore.Hosting" Version="0.0.4" />
+    <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
     <PackageReference Include="MathCore.WPF" Version="0.0.31" />
   </ItemGroup>
 
