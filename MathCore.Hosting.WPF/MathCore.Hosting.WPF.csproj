@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.6.7</Version>
+    <Version>0.0.6.8</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.32.2" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.32.3" />
   </ItemGroup>
 
 </Project>
