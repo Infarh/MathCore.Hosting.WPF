@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.32.3" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.32.4" />
   </ItemGroup>
 
 </Project>
