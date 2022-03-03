@@ -1,10 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MathCore.Hosting.WPF;
 
+/// <summary>Базовый класс для реализации локатора сервисов приложения</summary>
 public class ServiceLocatorHosted : ServiceLocator
 {
+    static ServiceLocatorHosted() => ApplicationHosting.HostBuilderConfiguratorAdd(ConfigureAppServices);
+
+    private static void ConfigureAppServices(IHostBuilder HostBuilder) => HostBuilder.ConfigureServices(ConfigureServices);
+
     protected override IServiceProvider Services => ApplicationHosting.Services;
+
+    public object? this[Type ServiceType] => Services.GetService(ServiceType);
+
+    public object? this[string ServiceTypeName] => Type.GetType(ServiceTypeName) is { } type ? this[type] : null;
 
     public virtual object? GetService(Type ServiceType) => Services.GetService(ServiceType);
 

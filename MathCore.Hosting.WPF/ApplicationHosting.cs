@@ -9,16 +9,27 @@ using Microsoft.Extensions.Hosting;
 
 namespace MathCore.Hosting.WPF;
 
+/// <summary>Приложение WPF с поддержкой механизмов хоста и контейнера сервисов</summary>
 public abstract class ApplicationHosting : Application
 {
+    /// <summary>Событие возникает в момент первичной конфигурации хоста</summary>
     protected static event Action<IHostBuilder>? ConfigureHost;
 
     private static readonly List<Action<IHostBuilder>> __HostBuilderConfigurations = new();
 
-    protected static void HostBuilderConfiguratorAdd(Action<IHostBuilder> Configurator) => __HostBuilderConfigurations.Add(Configurator);
+    /// <summary>Добавить действие конфигурации хоста</summary>
+    /// <param name="Configurator">Действие конфигурации</param>
+    protected internal static void HostBuilderConfiguratorAdd(Action<IHostBuilder> Configurator) => __HostBuilderConfigurations.Add(Configurator);
+
+    /// <summary>Удалить действие конфигурации хоста</summary>
+    /// <param name="Configurator">Действие конфигурации</param>
+    /// <returns>Истина, если действие конфигурации хоста удалено успешно</returns>
     protected static bool HostBuilderConfiguratorRemove(Action<IHostBuilder> Configurator) => __HostBuilderConfigurations.Remove(Configurator);
+
+    /// <summary>Удалить все действия конфигурации хоста</summary>
     protected static void HostBuilderConfiguratorClear() => __HostBuilderConfigurations.Clear();
 
+    /// <summary>Событие, возникающее при инициализации хоста для добавления сервисов в контейнер</summary>
     protected static event Action<HostBuilderContext, IServiceCollection>? ConfigureServices;
 
     private static readonly List<Action<HostBuilderContext, IServiceCollection>> __ServicesConfigurators = new()
@@ -46,24 +57,43 @@ public abstract class ApplicationHosting : Application
         }
     }
 
-    protected static void SrervicesAdd(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Add(Configurator);
-    protected static bool SrervicesRemove(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Remove(Configurator);
-    protected static void SrervicesClear() => __ServicesConfigurators.Clear();
+    /// <summary>Добавить действие конфигурации коллекции сервисов</summary>
+    /// <param name="Configurator">Действие конфигурации сервисов</param>
+    protected static void ServicesAdd(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Add(Configurator);
 
+    /// <summary>Удалить действие конфигурации сервисов</summary>
+    /// <param name="Configurator">Действие конфигурации сервисов</param>
+    /// <returns>Истина, если действие конфигурации сервисов удалено успешно</returns>
+    protected static bool ServicesRemove(Action<HostBuilderContext, IServiceCollection> Configurator) => __ServicesConfigurators.Remove(Configurator);
+
+    /// <summary>Очистить все действия конфигурации сервисов</summary>
+    protected static void ServicesClear() => __ServicesConfigurators.Clear();
+
+    /// <summary>Текущее окно в фокусе</summary>
     public static Window? FocusedWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsFocused);
+
+    /// <summary>Текущее активное окно</summary>
     public static Window? ActiveWindow => Current.Windows.Cast<Window>().FirstOrDefault(w => w.IsActive);
+
+    /// <summary>Текущее окно</summary>
     public static Window? CurrentWindow => FocusedWindow ?? ActiveWindow ?? Current.MainWindow;
 
     private static IHost? __Hosting;
 
+    /// <summary>Хост приложения</summary>
     public static IHost Hosting => __Hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs())
        .AddServiceLocator()
        .Build();
 
+    /// <summary>Контейнер сервисов приложения</summary>
     public static IServiceProvider Services => Hosting.Services;
 
+    /// <summary>Конфигурация приложения</summary>
     public static IConfiguration Configuration => Services.GetRequiredService<IConfiguration>();
 
+    /// <summary>Конфигурация построителя хоста</summary>
+    /// <param name="Args">Аргументы командной строки</param>
+    /// <returns>Сконфигурированный построитель хоста</returns>
     public static IHostBuilder CreateHostBuilder(string[] Args)
     {
         var builder = Host.CreateDefaultBuilder(Args);
@@ -84,8 +114,13 @@ public abstract class ApplicationHosting : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         var host = Hosting;
+        Resources["ServiceLocator"] = new ServiceLocatorHosted();
         base.OnStartup(e);
+        // ReSharper disable once AsyncApostle.AsyncAwaitMayBeElidedHighlighting
         await host.StartAsync().ConfigureAwait(false);
+
+        __HostBuilderConfigurations.Clear();
+        __ServicesConfigurators.Clear();
     }
 
     protected override async void OnExit(ExitEventArgs e)
