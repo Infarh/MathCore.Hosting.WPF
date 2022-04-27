@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCore.Hosting.WPF", "MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj", "{3D43B887-FC43-4074-B027-30E3F54EAC9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCore.Hosting.WPF", "MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj", "{3D43B887-FC43-4074-B027-30E3F54EAC9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A61C5345-67BE-46B8-A52D-338801906E34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathCore.Hosting.WPF.TestWPF", "Tests\MathCore.Hosting.WPF.TestWPF\MathCore.Hosting.WPF.TestWPF.csproj", "{0F4EEB55-74E5-4075-BBE0-FA8DBBE397E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCore.Hosting.WPF.TestWPF", "Tests\MathCore.Hosting.WPF.TestWPF\MathCore.Hosting.WPF.TestWPF.csproj", "{0F4EEB55-74E5-4075-BBE0-FA8DBBE397E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
