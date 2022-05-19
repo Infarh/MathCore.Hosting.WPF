@@ -41,4 +41,12 @@
     <DocumentationFile>$(MSBuildProjectName.Replace(" ", "_")).xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>
+      1591;
+      8618;
+      1701;1702;
+    </NoWarn>
+  </PropertyGroup>
+
 </Project>
