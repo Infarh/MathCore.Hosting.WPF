@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.7</Version>
+    <Version>0.0.7.1</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -33,12 +33,20 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.33" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.33.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>$(MSBuildProjectName.Replace(" ", "_")).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>
+      1591;
+      8618;
+      1701;1702;
+    </NoWarn>
   </PropertyGroup>
 
 </Project>
