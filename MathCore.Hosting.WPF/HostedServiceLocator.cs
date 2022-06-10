@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
-namespace MathCore.Hosting.WPF;
+﻿namespace MathCore.Hosting.WPF;
 
 /// <summary>Базовый класс для реализации локатора сервисов приложения</summary>
 public class ServiceLocatorHosted : ServiceLocator
