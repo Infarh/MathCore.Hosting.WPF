@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.7.3</Version>
+    <Version>0.0.7.4</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -32,8 +32,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="System" />
+    <Using Include="Microsoft.Extensions.Hosting" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Microsoft.Extensions.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.34.1" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.34.2" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

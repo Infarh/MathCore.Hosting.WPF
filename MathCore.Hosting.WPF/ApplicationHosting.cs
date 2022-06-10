@@ -3,10 +3,6 @@ using System.Windows;
 
 using MathCore.DI;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-
 namespace MathCore.Hosting.WPF;
 
 /// <summary>Приложение WPF с поддержкой механизмов хоста и контейнера сервисов</summary>
