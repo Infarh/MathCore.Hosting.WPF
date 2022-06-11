@@ -1,26 +1,26 @@
-﻿using System;
+﻿#nullable enable
+using System;
 
 using MathCore.Hosting.WPF.TestWPF.ViewModels;
 
-namespace MathCore.Hosting.WPF.TestWPF
-{
-    public class ServiceLocator : ServiceLocatorHosted
-    {
-        public Exception Error { get; private set; }
+namespace MathCore.Hosting.WPF.TestWPF;
 
-        public MainWindowViewModel MainModel
+public class ServiceLocator : ServiceLocatorHosted
+{
+    public Exception? LastError { get; private set; }
+
+    public MainWindowViewModel MainModel
+    {
+        get
         {
-            get
+            try
             {
-                try
-                {
-                    return GetRequiredService<MainWindowViewModel>();
-                }
-                catch (Exception error)
-                {
-                    Error = error;
-                    throw;
-                }
+                return GetRequiredService<MainWindowViewModel>();
+            }
+            catch (Exception error)
+            {
+                LastError = error;
+                throw;
             }
         }
     }
