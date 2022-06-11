@@ -1,7 +1,9 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Windows;
 
 using MathCore.DI;
+using MathCore.WPF.ViewModels;
 
 namespace MathCore.Hosting.WPF;
 
@@ -33,24 +35,37 @@ public abstract class ApplicationHosting : Application
         LoadingServiceFromExecutingAssembly,
     };
 
+    public static IReadOnlyList<Assembly> ErrorLoadingServicesAssemblies { get; private set; } = Array.Empty<Assembly>();
+
     private static void LoadingServiceFromExecutingAssembly(HostBuilderContext Host, IServiceCollection services)
     {
+        var error_assemblies = new List<Assembly>();
         foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            if (assembly.GetName().Name is { Length: > 0 } name && (name.Contains("Microsoft") || name.Contains("Interop") || name.Contains("Blend")))
-                continue;
-            if (assembly.GetCustomAttributes<AssemblyCompanyAttribute>().FirstOrDefault() is { } attribute && attribute.Company.Contains("Microsoft"))
-                continue;
-
-            if (assembly.DefinedTypes.Any(type => type.GetMethod("Main") != null))
+            try
             {
-                services.AddServicesFromAssembly(assembly);
-                continue;
+                if (assembly.GetName() is { Name: { Length: > 0 } name } && (name.StartsWith("Microsoft") || name.Contains("Interop") || name.Contains("Blend")))
+                    continue;
+
+                if (assembly.GetCustomAttributes<AssemblyCompanyAttribute>().FirstOrDefault() is { Company: { Length: > 0 } company } && company.Contains("Microsoft"))
+                    continue;
+
+                if (assembly.DefinedTypes.Any(type => type.GetMethod("Main") != null))
+                {
+                    services.AddServicesFromAssembly(assembly);
+                    continue;
+                }
+
+                if (assembly.GetCustomAttributes().Any(a => a.GetType().Name.Contains("Service")))
+                    services.AddServicesFromAssembly(assembly);
+            }
+            catch (ReflectionTypeLoadException)
+            {
+                error_assemblies.Add(assembly);
             }
 
-            if(assembly.GetCustomAttributes().Any(a => a.GetType().Name.Contains("Service")))
-                services.AddServicesFromAssembly(assembly);
-        }
+        if (error_assemblies.Count == 0) return;
+        error_assemblies.TrimExcess();
+        ErrorLoadingServicesAssemblies = error_assemblies.ToArray();
     }
 
     /// <summary>Добавить действие конфигурации коллекции сервисов</summary>

@@ -8,7 +8,7 @@
         DataContext="{Binding MainModel, Source={StaticResource Locator}}"
         Width="800" Height="450">
     <Grid>
-        <TextBlock Text="{Binding Error, Source={StaticResource Locator}}"/>
+        <TextBlock Text="{Binding LastError, Source={StaticResource Locator}, TargetNullValue=--null--}"/>
 
     </Grid>
 </Window>
