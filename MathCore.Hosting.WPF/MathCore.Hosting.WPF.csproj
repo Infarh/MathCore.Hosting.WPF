@@ -40,7 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.35" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.36" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
