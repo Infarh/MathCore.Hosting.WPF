@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.7.7</Version>
+    <Version>0.0.7.8</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -40,7 +40,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.37" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.37.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
