@@ -1,9 +1,6 @@
-﻿using MathCore.DI;
-using MathCore.WPF.ViewModels;
+﻿namespace MathCore.Hosting.WPF.TestWPF.ViewModels;
 
-namespace MathCore.Hosting.WPF.TestWPF.ViewModels;
-
-[Service]
+[Service, WindowViewModel<MainWindow>]
 public class MainWindowViewModel : TitledViewModel
 {
     public MainWindowViewModel() => Title = "Test main window";
