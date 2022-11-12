@@ -16,7 +16,7 @@ jobs:
           dotnet-version: 7.0.x
           
       - name: Building
-        run: dotnet build MathCore.Hosting.WPF/MathCore.Hosting.WPF.csproj -c debug
+        run: dotnet build MathCore.Hosting.WPF/MathCore.Hosting.WPF.csproj -c debug --nologo
           
 #       - name: Run Tests
-#         run: dotnet test Tests/MathCore.WPF.Tests/MathCore.WPF.Tests.csproj -c Debug --no-build
+#         run: dotnet test Tests/MathCore.WPF.Tests/MathCore.WPF.Tests.csproj -c Debug --no-build --nologo
