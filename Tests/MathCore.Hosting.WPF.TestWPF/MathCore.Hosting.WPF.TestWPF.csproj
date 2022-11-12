@@ -2,9 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="MathCore.DI"/>
+    <Using Include="MathCore.WPF.ViewModels"/>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj" />

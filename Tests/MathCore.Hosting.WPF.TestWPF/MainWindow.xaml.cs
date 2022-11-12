@@ -1,7 +1,6 @@
-﻿namespace MathCore.Hosting.WPF.TestWPF
+﻿namespace MathCore.Hosting.WPF.TestWPF;
+
+public partial class MainWindow
 {
-    public partial class MainWindow
-    {
-        public MainWindow() => InitializeComponent();
-    }
+    public MainWindow() => InitializeComponent();
 }

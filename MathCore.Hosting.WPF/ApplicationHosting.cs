@@ -1,9 +1,5 @@
-﻿using System.IO;
-using System.Reflection;
-using System.Windows;
-
-using MathCore.DI;
-using MathCore.WPF.ViewModels;
+﻿using MathCore.DI;
+// ReSharper disable EventNeverSubscribedTo.Global
 
 namespace MathCore.Hosting.WPF;
 

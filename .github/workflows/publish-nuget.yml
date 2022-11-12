@@ -12,21 +12,21 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       
       - name: Use .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 6.0.x
+          dotnet-version: 7.0.x
         
       - name: Building
-        run: dotnet build MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c release
+        run: dotnet build MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c release --nologo
           
 #       - name: Testing
-#         run: dotnet test Tests\MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c Release --no-build
+#         run: dotnet test Tests\MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj -c Release --no-build --nologo
         
       - name: Packing
-        run: dotnet pack MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj --no-build -c Release -v q
+        run: dotnet pack MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj --no-build -c Release -v q --nologo
         
       - name: Publishing
         run: dotnet nuget push MathCore.Hosting.WPF\bin\Release\*.nupkg -k ${{ secrets.NuGetApiKey }} --skip-duplicate -s https://api.nuget.org/v3/index.json
