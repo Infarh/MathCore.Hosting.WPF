@@ -12,9 +12,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.8.1</Version>
+    <Version>0.0.8.2</Version>
     <PackageReleaseNotes>
-      Обновление версий пакетов, поддержка .NET7
+      Обновление версий пакетов
     </PackageReleaseNotes>
   </PropertyGroup>
 
