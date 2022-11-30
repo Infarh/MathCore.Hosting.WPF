@@ -1,6 +1,10 @@
 name: Testing
 
-on: [push, pull_request]
+on: [push]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
 
 jobs:
   test:
@@ -9,14 +13,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: Use .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
           
+      - name: Cache NuGet  
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+          
       - name: Building
-        run: dotnet build MathCore.Hosting.WPF/MathCore.Hosting.WPF.csproj -c debug --nologo
+        run: dotnet build MathCore.Hosting.WPF/MathCore.Hosting.WPF.csproj -c debug
           
 #       - name: Run Tests
-#         run: dotnet test Tests/MathCore.WPF.Tests/MathCore.WPF.Tests.csproj -c Debug --no-build --nologo
+#         run: dotnet test Tests/MathCore.WPF.Tests/MathCore.WPF.Tests.csproj -c Debug --no-build
