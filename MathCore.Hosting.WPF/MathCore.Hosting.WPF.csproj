@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.8.2</Version>
+    <Version>0.0.8.3</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -44,7 +44,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.2" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.39" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.39.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
