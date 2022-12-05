@@ -4,4 +4,4 @@
 public class MainWindowViewModel : TitledViewModel
 {
     public MainWindowViewModel() => Title = "Test main window";
-}
+}   

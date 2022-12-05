@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
+    <!--<TargetFramework>net461</TargetFramework>-->
     <!--<TargetFramework>net7.0-windows</TargetFramework>-->
     <TargetFrameworks>net7.0-windows;net6.0-windows;net5.0-windows;net461</TargetFrameworks>
     <UseWPF>true</UseWPF>
@@ -12,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.8.3</Version>
+    <Version>0.0.9</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
@@ -44,7 +45,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.2" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.39.1" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.40" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
@@ -57,9 +58,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <NoWarn>
       1591;
-      8618;
       1701;1702;
       NETSDK1138
     </NoWarn>
