@@ -1,5 +1,6 @@
 ﻿// ReSharper disable UnusedMember.Global
 // ReSharper disable UnusedType.Global
+
 namespace MathCore.Hosting.WPF;
 
 /// <summary>Модель-представления окна</summary>
@@ -7,7 +8,7 @@ public class WindowViewModelAttribute : Attribute
 {
     /// <summary>Тип окна для модели-представления</summary>
     [ConstructorArgument(nameof(WindowType))]
-    public Type WindowType { get; set; }
+    public required Type WindowType { get; init; }
 
     public WindowViewModelAttribute() { }
 
@@ -17,9 +18,12 @@ public class WindowViewModelAttribute : Attribute
 #if NET7
 
 /// <summary>Модель-представления окна</summary>
-public sealed class WindowViewModelAttribute<TWindow> : WindowViewModelAttribute where TWindow : Window
+public sealed class WindowViewModelAttribute<TWindow> : Attribute where TWindow : Window
 {
-    public WindowViewModelAttribute() : base(typeof(TWindow)) { }
+    /// <summary>Тип окна для модели-представления</summary>
+    public Type WindowType { get; }
+
+    public WindowViewModelAttribute() => WindowType = typeof(TWindow);
 }
 
 #endif
