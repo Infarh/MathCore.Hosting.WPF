@@ -4,6 +4,13 @@
              xmlns:l="clr-namespace:MathCore.Hosting.WPF.TestWPF"
              StartupUri="MainWindow.xaml" >
     <Application.Resources>
-         <l:ServiceLocator x:Key="Locator"/>
+         <ResourceDictionary>
+             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MathCore.WPF;component/Styles/ModernWindowStyle.xaml"/>
+             </ResourceDictionary.MergedDictionaries>
+
+             <l:ServiceLocator x:Key="Locator"/>
+
+        </ResourceDictionary>
     </Application.Resources>
 </ApplicationHosting>
