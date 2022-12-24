@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.9.8</Version>
+    <Version>0.0.9.9</Version>
     <PackageReleaseNotes>
       Обновление версий пакетов
     </PackageReleaseNotes>
