@@ -44,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathCore.Hosting" Version="0.0.4.2" />
+    <PackageReference Include="MathCore.Hosting" Version="0.0.4.3" />
     <PackageReference Include="MathCore.WPF" Version="0.0.44.5" />
   </ItemGroup>
 
