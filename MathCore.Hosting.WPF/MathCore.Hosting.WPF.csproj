@@ -2,9 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <!--<TargetFramework>net461</TargetFramework>-->
-    <!--<TargetFramework>net7.0-windows</TargetFramework>-->
-    <TargetFrameworks>net7.0-windows;net6.0-windows;net5.0-windows;net461</TargetFrameworks>
+    <TargetFrameworks>
+      net8.0-windows;
+      net7.0-windows;
+      net6.0-windows;
+      net5.0-windows;
+      net461;
+    </TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
@@ -13,9 +17,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.9.10</Version>
+    <Version>0.0.10</Version>
     <PackageReleaseNotes>
-      Обновление версий пакетов
+      Поддержика .NET8
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -62,7 +66,7 @@
     <NoWarn>
       1591;
       1701;1702;
-      NETSDK1138
+      NETSDK1138;
     </NoWarn>
   </PropertyGroup>
 
