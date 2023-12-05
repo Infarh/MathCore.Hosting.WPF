@@ -6,8 +6,9 @@
       net8.0-windows;
       net7.0-windows;
       net6.0-windows;
-      net5.0-windows;
-      net461;
+      net4.8-windows;
+      net4.7-windows;
+      net4.6.1-windows;
     </TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
@@ -49,7 +50,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.4.3" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.44.5" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.44.6" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
