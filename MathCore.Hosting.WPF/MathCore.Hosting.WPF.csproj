@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>
+      net9.0-windows;
       net8.0-windows;
       net7.0-windows;
       net6.0-windows;
@@ -18,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.13.2</Version>
+    <Version>0.0.14</Version>
     <PackageReleaseNotes>
       Добавлен метод-расширение для MathCore.WPF.Command, обеспечивающий возможностьб логирования процесса выполнения
     </PackageReleaseNotes>
@@ -49,8 +50,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathCore.Hosting" Version="0.0.4.6" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.47.2" />
+    <PackageReference Include="MathCore.Hosting" Version="0.0.5" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.48" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
