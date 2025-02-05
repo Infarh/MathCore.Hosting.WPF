@@ -52,7 +52,7 @@ jobs:
         run: dotnet pack MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj --no-build -c Release -v q -o ${{ github.workspace }}/ReleasePack --include-symbols
       
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3.1.1
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: Release
           path: ${{ github.workspace }}/ReleasePack
@@ -65,7 +65,7 @@ jobs:
     
     steps:    
       - name: Get artifact
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@v4.1.8
         id: download
         with:
             name: Release
@@ -81,7 +81,7 @@ jobs:
     
     steps:    
       - name: Get artifact
-        uses: actions/download-artifact@v3.0.1
+        uses: actions/download-artifact@v4.1.8
         id: download
         with:
             name: Release
@@ -97,6 +97,6 @@ jobs:
     
     steps:
       - name: Delete artefact
-        uses: geekyeggo/delete-artifact@v2
+        uses: geekyeggo/delete-artifact@v5
         with:
             name: Release
