@@ -9,7 +9,7 @@ public abstract class ApplicationHosting : Application
     /// <summary>Событие возникает в момент первичной конфигурации хоста</summary>
     protected static event Action<IHostBuilder>? ConfigureHost;
 
-    private static readonly List<Action<IHostBuilder>> __HostBuilderConfigurations = new();
+    private static readonly List<Action<IHostBuilder>> __HostBuilderConfigurations = [];
 
     /// <summary>Добавить действие конфигурации хоста</summary>
     /// <param name="Configurator">Действие конфигурации</param>
@@ -26,10 +26,10 @@ public abstract class ApplicationHosting : Application
     /// <summary>Событие, возникающее при инициализации хоста для добавления сервисов в контейнер</summary>
     protected static event Action<HostBuilderContext, IServiceCollection>? ConfigureServices;
 
-    private static readonly List<Action<HostBuilderContext, IServiceCollection>> __ServicesConfigurators = new()
-    {
+    private static readonly List<Action<HostBuilderContext, IServiceCollection>> __ServicesConfigurators =
+    [
         LoadingServiceFromExecutingAssembly,
-    };
+    ];
 
     public static IReadOnlyList<Assembly> ErrorLoadingServicesAssemblies { get; private set; } = Array.Empty<Assembly>();
 
@@ -106,6 +106,12 @@ public abstract class ApplicationHosting : Application
         var builder = Host.CreateDefaultBuilder(Args);
         foreach (var configurator in __HostBuilderConfigurations)
             configurator(builder);
+
+        builder.ConfigureServices((context, services) =>
+        {
+            services.AddSingleton(context.HostingEnvironment);
+            services.AddSingleton(_ => Current);
+        });
 
         ConfigureHost?.Invoke(builder);
 
