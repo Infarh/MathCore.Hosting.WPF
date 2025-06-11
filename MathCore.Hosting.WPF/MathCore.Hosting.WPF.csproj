@@ -19,9 +19,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.14.1</Version>
+    <Version>0.0.13.1</Version>
     <PackageReleaseNotes>
-      Мелкие исправления
+      Добавлен метод-расширение для MathCore.WPF.Command, обеспечивающий возможностьб логирования процесса выполнения
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -51,7 +51,7 @@
 
   <ItemGroup>
     <PackageReference Include="MathCore.Hosting" Version="0.0.5.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.48.1" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.48.2" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
