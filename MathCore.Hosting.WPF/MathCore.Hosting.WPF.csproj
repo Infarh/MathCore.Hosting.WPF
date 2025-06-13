@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.13.1</Version>
+    <Version>0.0.14.2</Version>
     <PackageReleaseNotes>
       Добавлен метод-расширение для MathCore.WPF.Command, обеспечивающий возможностьб логирования процесса выполнения
     </PackageReleaseNotes>
