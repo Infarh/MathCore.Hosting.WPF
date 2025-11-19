@@ -1,13 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32421.90
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11205.157 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCore.Hosting.WPF", "MathCore.Hosting.WPF\MathCore.Hosting.WPF.csproj", "{3D43B887-FC43-4074-B027-30E3F54EAC9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A61C5345-67BE-46B8-A52D-338801906E34}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MathCore.Hosting.WPF.TestWPF", "Tests\MathCore.Hosting.WPF.TestWPF\MathCore.Hosting.WPF.TestWPF.csproj", "{0F4EEB55-74E5-4075-BBE0-FA8DBBE397E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Service", ".Service", "{28372A79-1495-45D6-A555-D9D5F75FE7F8}"
+	ProjectSection(SolutionItems) = preProject
+		.github\copilot-instructions.md = .github\copilot-instructions.md
+		.github\workflows\publish.yml = .github\workflows\publish.yml
+		.github\workflows\testing.yml = .github\workflows\testing.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

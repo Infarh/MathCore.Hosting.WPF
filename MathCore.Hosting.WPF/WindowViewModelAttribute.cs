@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 namespace MathCore.Hosting.WPF;
 
 /// <summary>Модель-представления окна</summary>
+[AttributeUsage(AttributeTargets.Class)]
 public class WindowViewModelAttribute(Type WindowType) : Attribute
 {
     public WindowViewModelAttribute() : this(null!) { }
@@ -18,6 +19,7 @@ public class WindowViewModelAttribute(Type WindowType) : Attribute
 #if NET7_0_OR_GREATER
 
 /// <summary>Модель-представления окна</summary>
+[AttributeUsage(AttributeTargets.Class)]
 public sealed class WindowViewModelAttribute<TWindow>() : Attribute where TWindow : Window
 {
     /// <summary>Тип окна для модели-представления</summary>

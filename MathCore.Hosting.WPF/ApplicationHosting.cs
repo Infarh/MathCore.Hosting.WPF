@@ -1,9 +1,67 @@
-﻿using MathCore.DI;
+﻿using System.Diagnostics.CodeAnalysis;
+using MathCore.DI;
 // ReSharper disable EventNeverSubscribedTo.Global
 
 namespace MathCore.Hosting.WPF;
 
 /// <summary>Приложение WPF с поддержкой механизмов хоста и контейнера сервисов</summary>
+/// <remarks>
+/// Для использования необходимо унаследовать ваш класс приложения от данного абстрактного класса и корректно указать его в корневой разметке App.xaml
+/// Регистрацию пользовательских сервисов можно выполнить через статическое событие ConfigureServices или методы ServicesAdd/ServicesRemove
+/// </remarks>
+/// <example>
+/// Пример настройки приложения:
+/// 1. Создаём класс App.xaml.cs, наследуя его от ApplicationHosting:
+/// <code>
+/// using MathCore.Hosting.WPF;
+/// using Microsoft.Extensions.DependencyInjection;
+/// using Microsoft.Extensions.Hosting;
+///
+/// namespace MyApp;
+///
+/// public interface IMyService { void Do(); }
+/// public class MyService : IMyService { public void Do() { /* реализация */ } }
+///
+/// public partial class App : ApplicationHosting
+/// {
+///     static App()
+///     {
+///         // Подписка на событие конфигурации сервисов один раз при загрузке типа
+///         ConfigureServices += OnConfigureServices;
+///     }
+///
+///     private static void OnConfigureServices(HostBuilderContext context, IServiceCollection services)
+///     {
+///         // Регистрация собственных сервисов приложения
+///         services.AddSingleton<IMyService, MyService>();
+///     }
+/// }
+/// </code>
+/// 2. Изменяем корень файла App.xaml, указывая локальный класс (унаследован от ApplicationHosting):
+/// <code>
+/// <local:App x:Class="MyApp.App"
+///            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+///            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+///            xmlns:local="clr-namespace:MyApp"
+///            StartupUri="MainWindow.xaml">
+///     <!-- Ресурсы приложения -->
+/// </local:App>
+/// </code>
+/// 3. Использование зарегистрированного сервиса в окне:
+/// <code>
+/// using Microsoft.Extensions.DependencyInjection;
+///
+/// public partial class MainWindow : Window
+/// {
+///     public MainWindow()
+///     {
+///         InitializeComponent();
+///         var my_service = ApplicationHosting.Services.GetRequiredService<IMyService>();
+///         my_service.Do();
+///     }
+/// }
+/// </code>
+/// </example>
 public abstract class ApplicationHosting : Application
 {
     /// <summary>Событие возникает в момент первичной конфигурации хоста</summary>
@@ -31,7 +89,8 @@ public abstract class ApplicationHosting : Application
         LoadingServiceFromExecutingAssembly,
     ];
 
-    public static IReadOnlyList<Assembly> ErrorLoadingServicesAssemblies { get; private set; } = Array.Empty<Assembly>();
+    /// <summary>Список сборок, в которых произошли ошибки при загрузке сервисов</summary>
+    public static IReadOnlyList<Assembly> ErrorLoadingServicesAssemblies { get; private set; } = [];
 
     private static void LoadingServiceFromExecutingAssembly(HostBuilderContext Host, IServiceCollection services)
     {
@@ -85,10 +144,9 @@ public abstract class ApplicationHosting : Application
     /// <summary>Текущее окно</summary>
     public static Window? CurrentWindow => FocusedWindow ?? ActiveWindow ?? Current.MainWindow;
 
-    private static IHost? __Hosting;
-
     /// <summary>Хост приложения</summary>
-    public static IHost Hosting => __Hosting ??= CreateHostBuilder(Environment.GetCommandLineArgs())
+    [field: MaybeNull, AllowNull]
+    public static IHost Hosting => field ??= CreateHostBuilder(Environment.GetCommandLineArgs())
        .AddServiceLocator()
        .Build();
 
@@ -124,22 +182,62 @@ public abstract class ApplicationHosting : Application
         return builder;
     }
 
+    /// <summary>Переопределяет логику старта приложения для инициализации хоста и контейнера сервисов</summary>
     protected override async void OnStartup(StartupEventArgs e)
     {
-        var host = Hosting;
-        Resources["ServiceLocator"] = new ServiceLocatorHosted();
-        base.OnStartup(e);
-        // ReSharper disable once AsyncApostle.AsyncAwaitMayBeElidedHighlighting
-        await host.StartAsync().ConfigureAwait(false);
+        try
+        {
+            var host = Hosting;
+            Resources["ServiceLocator"] = new ServiceLocatorHosted();
+            base.OnStartup(e);
+            // ReSharper disable once AsyncApostle.AsyncAwaitMayBeElidedHighlighting
+            await host.StartAsync().ConfigureAwait(false);
 
-        __HostBuilderConfigurations.Clear();
-        __ServicesConfigurators.Clear();
+            __HostBuilderConfigurations.Clear();
+            __ServicesConfigurators.Clear();
+        }
+        catch (Exception error)
+        {
+            if(!HandleStartupException(error))
+                // ReSharper disable once AsyncVoidThrowException
+                throw;
+        }
     }
 
+    /// <summary>
+    /// Переопределяет логику обработки исключений, возникающих при старте приложения
+    /// </summary>
+    /// <param name="error">Возникшее в процессе выполнения метода <see cref="OnStartup"/> исключение</param>
+    /// <returns>
+    /// Истина, если исключение обработано и его повторная генерация не требуется - приложение продолжит работать;
+    /// Ложь, если исключение не обработано и его необходимо повторно сгенерировать - приложение завершит работу.
+    /// </returns>
+    protected virtual bool HandleStartupException(Exception error) => false;
+
+    /// <summary>Переопределяет логику завершения приложения для корректной остановки хоста</summary>
     protected override async void OnExit(ExitEventArgs e)
     {
-        using var host = Hosting;
-        base.OnExit(e);
-        await host.StopAsync().ConfigureAwait(false);
+        try
+        {
+            using var host = Hosting;
+            base.OnExit(e);
+            await host.StopAsync().ConfigureAwait(false);
+        }
+        catch (Exception error)
+        {
+            if(!HandleExitException(error))
+                // ReSharper disable once AsyncVoidThrowException
+                throw;
+        }
     }
+
+    /// <summary>
+    /// Переопределяет логику обработки исключений, возникающих при завершении приложения
+    /// </summary>
+    /// <param name="error">Возникшее в процессе выполнения метода <see cref="OnExit"/> исключение</param>
+    /// <returns>
+    /// Истина, если исключение обработано и его повторная генерация не требуется - приложение продолжит завершение работы;
+    /// Ложь, если исключение не обработано и его необходимо повторно сгенерировать - приложение завершит работу с ошибкой.
+    /// </returns>
+    protected virtual bool HandleExitException(Exception error) => false;
 }
