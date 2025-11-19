@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>
+      net10.0-windows;
       net9.0-windows;
       net8.0-windows;
       net7.0-windows;
@@ -19,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.0.14.2</Version>
+    <Version>1.0.0</Version>
     <PackageReleaseNotes>
       Добавлен метод-расширение для MathCore.WPF.Command, обеспечивающий возможностьб логирования процесса выполнения
     </PackageReleaseNotes>
@@ -37,6 +38,7 @@
     <AssemblyOriginatorKeyFile>MathCore.Hosting.WPF.snk</AssemblyOriginatorKeyFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReadmeFile>NuGetReadme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -50,8 +52,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MathCore.Hosting" Version="0.0.5.1" />
-    <PackageReference Include="MathCore.WPF" Version="0.0.48.2" />
+    <PackageReference Include="MathCore.Hosting" Version="0.0.6" />
+    <PackageReference Include="MathCore.WPF" Version="0.0.48.3" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net7.0-windows'">
@@ -71,5 +73,9 @@
       NETSDK1138;
     </NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="readme.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 
 </Project>
