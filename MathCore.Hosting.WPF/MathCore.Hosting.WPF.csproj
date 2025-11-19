@@ -38,7 +38,7 @@
     <AssemblyOriginatorKeyFile>MathCore.Hosting.WPF.snk</AssemblyOriginatorKeyFile>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PackageReadmeFile>NuGetReadme.md</PackageReadmeFile>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
