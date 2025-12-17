@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/.Service/">
+    <File Path=".github/copilot-instructions.md" />
+    <File Path=".github/workflows/publish.yml" />
+    <File Path=".github/workflows/testing.yml" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/MathCore.Hosting.WPF.TestWPF/MathCore.Hosting.WPF.TestWPF.csproj" />
+  </Folder>
+  <Project Path="MathCore.Hosting.WPF/MathCore.Hosting.WPF.csproj" />
+</Solution>
