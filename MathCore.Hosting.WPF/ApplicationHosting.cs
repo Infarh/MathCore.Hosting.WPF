@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+
 using MathCore.DI;
 // ReSharper disable EventNeverSubscribedTo.Global
 
@@ -11,8 +12,8 @@ namespace MathCore.Hosting.WPF;
 /// </remarks>
 /// <example>
 /// Пример настройки приложения:
-/// 1. Создаём класс App.xaml.cs, наследуя его от ApplicationHosting:
-/// <code>
+/// 1. Создаём класс App.xaml.cs, наследуя его от ApplicationHosting в разметке XAML:
+/// <code><![CDATA[
 /// using MathCore.Hosting.WPF;
 /// using Microsoft.Extensions.DependencyInjection;
 /// using Microsoft.Extensions.Hosting;
@@ -22,7 +23,7 @@ namespace MathCore.Hosting.WPF;
 /// public interface IMyService { void Do(); }
 /// public class MyService : IMyService { public void Do() { /* реализация */ } }
 ///
-/// public partial class App : ApplicationHosting
+/// public partial class App // : Application - удалить наследование от Application, так как ApplicationHosting уже наследует его в разметке XAML
 /// {
 ///     static App()
 ///     {
@@ -36,19 +37,19 @@ namespace MathCore.Hosting.WPF;
 ///         services.AddSingleton<IMyService, MyService>();
 ///     }
 /// }
-/// </code>
+/// ]]></code>
 /// 2. Изменяем корень файла App.xaml, указывая локальный класс (унаследован от ApplicationHosting):
-/// <code>
-/// <local:App x:Class="MyApp.App"
+/// <code><![CDATA[
+/// <ApplicationHosting x:Class="MyApp.App"
 ///            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 ///            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-///            xmlns:local="clr-namespace:MyApp"
+///            xmlns:l="clr-namespace:MyApp"
 ///            StartupUri="MainWindow.xaml">
 ///     <!-- Ресурсы приложения -->
-/// </local:App>
-/// </code>
+/// </ApplicationHosting>
+/// ]]></code>
 /// 3. Использование зарегистрированного сервиса в окне:
-/// <code>
+/// <code><![CDATA[
 /// using Microsoft.Extensions.DependencyInjection;
 ///
 /// public partial class MainWindow : Window
@@ -60,7 +61,15 @@ namespace MathCore.Hosting.WPF;
 ///         my_service.Do();
 ///     }
 /// }
-/// </code>
+/// ]]></code>
+/// 
+/// Пример компактной настройки приложения:
+/// <code><![CDATA[
+/// public partial class App // : Application - удалить наследование от Application, так как ApplicationHosting уже наследует его в разметке XAML
+/// {
+///     static App() => ConfigureServices += (_, services) => services.AddSingleton<IMyService, MyService>();
+/// }
+/// ]]></code>
 /// </example>
 public abstract class ApplicationHosting : Application
 {
@@ -198,7 +207,7 @@ public abstract class ApplicationHosting : Application
         }
         catch (Exception error)
         {
-            if(!HandleStartupException(error))
+            if (!HandleStartupException(error))
                 // ReSharper disable once AsyncVoidThrowException
                 throw;
         }
@@ -225,7 +234,7 @@ public abstract class ApplicationHosting : Application
         }
         catch (Exception error)
         {
-            if(!HandleExitException(error))
+            if (!HandleExitException(error))
                 // ReSharper disable once AsyncVoidThrowException
                 throw;
         }

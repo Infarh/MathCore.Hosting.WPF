@@ -5,6 +5,12 @@ using Microsoft.Extensions.Logging;
 namespace MathCore.Hosting.WPF.Extensions;
 
 /// <summary>Методы расширения для конфигурации команд</summary>
+/// <example>
+/// <code><![CDATA[
+/// var command = new RelayCommand(_ => DoWork());
+/// command.WithLogging(logger);
+/// ]]></code>
+/// </example>
 public static class CommandEx
 {
     /// <summary>Добавляет логирование событий выполнения команды</summary>
